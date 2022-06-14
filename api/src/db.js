@@ -59,7 +59,10 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // sequelize.models has every model as property so we destructure them to make relations
-const { User } = sequelize.models;
+const { User, Operation } = sequelize.models;
+
+User.hasMany(Operation);
+Operation.belongsTo(User);
 
 module.exports = {
   ...sequelize.models,
