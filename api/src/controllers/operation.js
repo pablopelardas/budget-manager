@@ -25,7 +25,7 @@ const getOperationById = async(req,res,next) => {
 }
 
 const getOperationsByUser = async(req,res,next) => {
-  const {userId} = req.body
+  const {userId} = req.params
   try{
     const operations = await Operation.findAll({where:{userId}})
     operations ? res.send(operation) : res.status(404).send(`None operations were found with userId: ${userId}`)
