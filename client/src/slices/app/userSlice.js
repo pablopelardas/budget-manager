@@ -4,7 +4,8 @@ const initialState = {
   user: {
     name: '',
     balance: 0,
-    operations: []
+    operations: [],
+    last_operations: []
   }
 }
 
@@ -13,11 +14,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload
+      console.log(action.payload)
+      state.user = { ...state.user, ...action.payload }
     }
   }
 })
 
 export const { setUser } = userSlice.actions
+
+export const selectCurrentUser = (state) => state.user.user
 
 export default userSlice.reducer
