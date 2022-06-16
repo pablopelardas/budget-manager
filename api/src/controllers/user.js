@@ -7,7 +7,7 @@ const getUserById = async(req,res,next) => {
       include:[
         {
           model: Operation,
-          attributes: ['concept','mount','date','type'],  
+          attributes: ['concept','mount','type'],  
         }
       ]
     })
