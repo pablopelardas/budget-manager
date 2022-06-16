@@ -27,11 +27,26 @@ const getOperationById = async(req,res,next) => {
 const getOperationsByUser = async(req,res,next) => {
   const {userId} = req.params
   try{
-    const operations = await Operation.findAll({where:{userId}})
-    operations ? res.send(operation) : res.status(404).send(`None operations were found with userId: ${userId}`)
+    const operations = await Operation.findAll({where:{userId}, order:[['createdAt' , 'DESC']], limit: 10})
+    operations ? res.send(operations) : res.status(404).send(`None operations were found with userId: ${userId}`)
+  }catch(error){console.log(error)}
+}
+
+const getUserBalance = async(req,res,next) => {
+  const {userId} = req.params
+  try{
+    const user = await User.findByPk(userId)
+    if (!user) return res.status(404).send(`User not found with id:${userId}`)
+    let operations = await Operation.findAll({where:{userId}})
+    operations = operations.map(op => parseInt(op.type === 'income' ? op.mount : -op.mount))
+    const balance = operations.length ?  operations.reduce((acc, nextMount) => acc + nextMount) : 0
+    res.send({balance})
   }catch(error){console.log(error)}
 }
 
 module.exports = {
-  postOperation
+  postOperation,
+  getOperationById,
+  getOperationsByUser,
+  getUserBalance
 }
