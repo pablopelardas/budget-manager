@@ -6,7 +6,6 @@ const router = Router();
 router.post('/user/:userId', postOperation)
 router.get('/user/:userId', getOperationsByUser)
 router.get('/:id', getOperationById)
-router.get('/balance/:userId', getUserBalance)
 
 module.exports = {
   router

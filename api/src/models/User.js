@@ -9,11 +9,6 @@ module.exports = (sequelize) => {
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
-		},
-		balance: {
-			type: DataTypes.STRING,
-			allowNull: false,
-      defaultValue: 0,
-		},
+		}
 	});
 };
