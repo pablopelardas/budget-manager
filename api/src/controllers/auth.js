@@ -39,6 +39,7 @@ const loginUser = async (req,res,next) => {
       user: {
         name: user.name,
         email: user.email,
+        id: user.id
       },
       accessToken
     })
@@ -71,6 +72,7 @@ const getUserAuth = async (req, res, next) => {
       user: {
         name : user.name,
         email : user.email,
+        id: user.id
         },
       accessToken: newToken
     })
