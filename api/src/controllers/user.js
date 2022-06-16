@@ -21,15 +21,6 @@ const getUserById = async(req,res,next) => {
   }catch(error){console.log(error)}
 }
 
-const postUser = async (req, res, next)=>{
-  const {name, email} = req.body
-  try{
-    const user = await User.create({name, email})
-    res.status(201).send(user)
-  }catch(err){console.log(err)}
-}
-
 module.exports = {
-  getUserById,
-  postUser
+  getUserById
 }

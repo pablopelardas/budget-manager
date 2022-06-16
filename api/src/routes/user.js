@@ -1,12 +1,10 @@
 const {Router} = require('express') 
-const {getUserById, postUser} = require('../controllers/user.js')
+const {getUserById} = require('../controllers/user.js');
+const { authenticateToken } = require('../middlewares/authenticateToken.js');
 const router = Router();
 
-// Post new user to database
-router.post('/', postUser)
-
 // Get user by id
-router.get('/:id', getUserById)
+router.get('/:id',authenticateToken, getUserById)
 
 module.exports = {
   router
