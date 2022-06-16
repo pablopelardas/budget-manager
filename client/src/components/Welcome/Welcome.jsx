@@ -1,6 +1,10 @@
 import React from 'react'
+import { useGetUserQuery, useGetOperationsByUserQuery } from '../../slices/api/userApiSlice'
 
 const Welcome = ({ currentUser }) => {
+  console.log(currentUser)
+  useGetUserQuery(currentUser.id)
+  useGetOperationsByUserQuery(currentUser.id)
   return (
     <section>
       <h1>Bienvenido {currentUser?.name}</h1>

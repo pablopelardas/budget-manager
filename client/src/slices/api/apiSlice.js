@@ -1,35 +1,43 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setUser } from '../app/userSlice'
+import { setCredentials, logOut } from '../app/userSlice'
 
-export const budgetApi = createApi({
-  reducerPath: 'budgetApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api' }),
-  endpoints: (builder) => ({
-    getUser: builder.query({
-      query: (id) => `/user/${id}`,
-      async onQueryStarted (_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          console.log(data)
-          dispatch(setUser({ name: data.name, operations: data.operations, balance: data.balance }))
-        } catch (err) {
-          console.log('Error fetching user')
-        }
-      }
-    }),
-    getOperationsByUser: builder.query({
-      query: (id) => `/operation/user/${id}`,
-      async onQueryStarted (_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          console.log(data)
-          dispatch(setUser({ last_operations: data }))
-        } catch (err) {
-          console.log('Error fetching user')
-        }
-      }
-    })
-  })
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:3001/api',
+  credentials: 'include', // this will send back the HTTP only secury cookie with the refresh token
+  prepareHeaders: (Headers, { getState }) => {
+    const token = getState().user.token
+    console.log(getState().user)
+    console.log(token)
+    if (token) {
+      Headers.set('authorization', `Bearer ${token}`)
+    }
+    return Headers
+  }
 })
 
-export const { useGetUserQuery, useGetOperationsByUserQuery } = budgetApi
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions)
+  console.log(result)
+  // eslint-disable-next-line no-constant-condition
+  if (result?.error?.originalStatus === 403 || 401) {
+    console.log('sending refresh token')
+    // send refresh token to get new access token
+    const refreshResult = await baseQuery('/auth/refresh', api, extraOptions)
+    console.log(refreshResult)
+    if (refreshResult?.data) {
+      const user = api.getState().user.user
+      // store the new token
+      api.dispatch(setCredentials({ ...refreshResult.data, user }))
+      // retry the original query with new access token
+      result = await baseQuery(args, api, extraOptions)
+    } else {
+      api.dispatch(logOut())
+    }
+  }
+  return result
+}
+
+export const apiSlice = createApi({
+  baseQuery: baseQueryWithReauth,
+  endpoints: builder => ({})
+})
