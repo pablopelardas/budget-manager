@@ -2,15 +2,17 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './views/Layout/Layout.jsx'
 import Home from './views/Home/Home.jsx'
 import './styles/global.scss'
-import { useGetOperationsByUserQuery, useGetUserQuery } from './slices/api/apiSlice'
+import { useGetUserAuthQuery } from './slices/api/authApiSlice.js'
+import RequireAuth from './components/RequireAuth/RequireAuth.jsx'
 
 function App () {
-  useGetUserQuery(1)
-  useGetOperationsByUserQuery(1)
+  useGetUserAuthQuery()
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route element={<RequireAuth />}>
+          <Route index element={<Home />} />
+        </Route>
       </Route>
     </Routes>
   )
