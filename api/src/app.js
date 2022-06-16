@@ -3,6 +3,8 @@ const cors = require('cors')
 const express = require('express')
 const morgan = require('morgan')
 const config = require('../config.js')
+const {notFound} = require('./middlewares/notFound.js')
+const { handleError } = require('./middlewares/handleError.js')
 const router = require('./routes')
 require('./db.js');
 
@@ -32,5 +34,8 @@ app.get('/', (req,res,next) => {
 `)
 })
 app.use('/api', router)
+
+app.use(notFound)
+app.use(handleError)
 
 module.exports = app;
