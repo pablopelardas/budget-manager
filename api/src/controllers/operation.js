@@ -32,9 +32,24 @@ const getOperationsByUser = async(req,res,next) => {
   }catch(error){console.log(error)}
 }
 
+const getOperationsHistory = async(req,res,next) => {
+  const {userId} = req.params
+  const {type} = req.query
+  try{
+    let options = {
+      where:{userId},
+      order:[['createdAt' , 'DESC']],
+    };
+    if (type) options = {...options, where:{userId,type}}
+    const operations = await Operation.findAll(options)
+    operations ? res.send(operations) : res.status(404).send(`None operations were found with userId: ${userId}`)
+  }catch(error){console.log(error)}
+}
+
 
 module.exports = {
   postOperation,
   getOperationById,
   getOperationsByUser,
+  getOperationsHistory
 }
