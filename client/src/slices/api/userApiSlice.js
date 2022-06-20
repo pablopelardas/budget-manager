@@ -9,13 +9,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled
           console.log(data)
-          dispatch(setCredentials({ user: { name: data.name, operations: data.operations, balance: data.balance } }))
+          dispatch(setCredentials({ user: { name: data.name, balance: data.balance } }))
         } catch (err) {
           console.log('Error fetching user')
         }
       }
     }),
-    getOperationsByUser: builder.query({
+    getLastOperations: builder.query({
       query: (id) => `/operation/user/${id}`,
       async onQueryStarted (_, { dispatch, queryFulfilled }) {
         try {
@@ -27,11 +27,24 @@ export const userApiSlice = apiSlice.injectEndpoints({
           console.log('Error fetching user')
         }
       }
+    }),
+    getAllOperations: builder.query({
+      query: (id, type) => `/operation/history/${id}?type=${type}`,
+      async onQueryStarted (_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          dispatch(setCredentials({ user: { all_operations: data } }))
+        } catch (err) {
+          console.log(err)
+          console.log('Error fetching user')
+        }
+      }
     })
   })
 })
 
 export const {
   useGetUserQuery,
-  useGetOperationsByUserQuery
+  useGetLastOperationsQuery,
+  useGetAllOperationsQuery
 } = userApiSlice
