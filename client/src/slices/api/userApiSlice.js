@@ -8,7 +8,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted (_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
-          console.log(data)
           dispatch(setCredentials({ user: { name: data.name, balance: data.balance } }))
         } catch (err) {
           console.log('Error fetching user')
@@ -16,11 +15,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }
     }),
     getLastOperations: builder.query({
-      query: (id) => `/operation/user/${id}`,
+      query: (id) => {
+        if (!id) return ''
+        return {
+          url: `/operation/last/${id}`
+        }
+      },
       async onQueryStarted (_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
-          console.log(data)
           dispatch(setCredentials({ user: { last_operations: data } }))
         } catch (err) {
           console.log(err)
@@ -28,8 +31,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }
       }
     }),
-    getAllOperations: builder.query({
-      query: (id, type) => `/operation/history/${id}?type=${type}`,
+    getAllOperations: builder.mutation({
+      query: ({ id, type }) => {
+        if (!id) return ''
+        return {
+          url: `/operation/history/${id}?type=${type}`
+        }
+      },
       async onQueryStarted (_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
@@ -39,6 +47,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
           console.log('Error fetching user')
         }
       }
+    }),
+    createOperation: builder.mutation({
+      query: ({ userId, opData }) => {
+        return {
+          url: `/operation/create/${userId}`,
+          method: 'POST',
+          body: { ...opData }
+        }
+      }
     })
   })
 })
@@ -46,5 +63,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetUserQuery,
   useGetLastOperationsQuery,
-  useGetAllOperationsQuery
+  useGetAllOperationsMutation,
+  useCreateOperationMutation
 } = userApiSlice
