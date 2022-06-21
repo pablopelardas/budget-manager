@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.NOW,
       get(){
         let rawDate = this.getDataValue('date');
-        rawDate = rawDate.split('-')
+        rawDate = typeof rawDate === 'string' && rawDate?.split('-')
         return rawDate ? `${rawDate[2]}/${rawDate[1]}/${rawDate[0]}` : null
       }
     }

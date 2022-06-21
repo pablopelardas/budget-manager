@@ -55,7 +55,7 @@ const deleteOperation = async(req,res,next) => {
     const operation = await Operation.findByPk(operationId)
     const user = await User.findByPk(userId)
     if (!operation) return res.status(404).send(`Operation not found with id: ${operationId}`)
-    if (operation.userId !== userId) return res.status(403).send(`Operation not found with that  userId: ${userId}`)
+    if (operation.dataValues.userId != userId) return res.status(403).send(`Operation not found with that userId: ${userId}`)
     user.removeOperation(operation)
     operation.destroy()
     return res.status(204).send()
