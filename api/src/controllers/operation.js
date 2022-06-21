@@ -24,7 +24,7 @@ const getOperationById = async(req,res,next) => {
   }catch(error){console.log(error)}
 }
 
-const getOperationsByUser = async(req,res,next) => {
+const getLastOperationsByUser = async(req,res,next) => {
   const {userId} = req.params
   try{
     const operations = await Operation.findAll({where:{userId}, order:[['createdAt' , 'DESC']], limit: 10})
@@ -50,6 +50,6 @@ const getOperationsHistory = async(req,res,next) => {
 module.exports = {
   postOperation,
   getOperationById,
-  getOperationsByUser,
+  getLastOperationsByUser,
   getOperationsHistory
 }
