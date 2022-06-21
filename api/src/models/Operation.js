@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(255),
 			allowNull: false,
 		},
-		mount: {
+		amount: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},

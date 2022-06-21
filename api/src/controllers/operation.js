@@ -2,13 +2,13 @@ const {Operation, User} = require('../db.js')
 
 const postOperation = async (req,res,next) => {
   const {userId} = req.params
-  const {concept, mount, type} = req.body
+  const {concept, amount, type} = req.body
   try{
     const user = await User.findByPk(userId)
     if (!user) return res.status(404).send(`User not found with id:${userId}`)
     const newOperation = await user.createOperation({
       concept,
-      mount,
+      amount,
       type
     })
     res.status(201).send(newOperation)

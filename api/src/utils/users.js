@@ -8,7 +8,7 @@ const getUserFromDbByField = async(field, value) => {
       include:[
         {
           model: Operation,
-          attributes: ['concept','mount','type'],  
+          attributes: ['concept','amount','type'],  
         }
       ]
     })
