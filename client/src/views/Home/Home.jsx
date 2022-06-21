@@ -1,22 +1,17 @@
 import React from 'react'
 import Welcome from '../../containers/Welcome/Welcome'
 import Login from '../../containers/Login/Login'
-import { useSelector } from 'react-redux'
-import { selectCurrentToken, selectCurrentUser } from '../../slices/app/userSlice'
 import OperationManager from '../../containers/OperationManager/OperationManager'
+import useUpdateLists from '../../hooks/useUpdateLists/useUpdateLists'
 
 const Home = () => {
-  const currentUser = useSelector(selectCurrentUser)
-  const currentToken = useSelector(selectCurrentToken)
-  React.useEffect(() => {
-
-  }, [currentUser])
+  const { currentUser, currentToken, updateList } = useUpdateLists()
   const content = !currentToken
     ? <Login />
     : (
       <>
         <Welcome currentUser={currentUser} />
-        <OperationManager />
+        <OperationManager updateList={updateList} />
       </>
       )
 

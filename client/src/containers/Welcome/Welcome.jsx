@@ -1,10 +1,9 @@
 import React from 'react'
-import { useGetUserQuery, useGetLastOperationsQuery } from '../../slices/api/userApiSlice'
+
+import OperationList from '../../components/OperationList/OperationList'
 
 const Welcome = ({ currentUser }) => {
-  console.log(currentUser)
-  useGetUserQuery(currentUser.id)
-  useGetLastOperationsQuery(currentUser.id)
+  React.useEffect(() => {}, [currentUser.lastOperations])
   return (
     <section>
       <h1>Welcome {currentUser?.name}</h1>
@@ -13,11 +12,7 @@ const Welcome = ({ currentUser }) => {
       </div>
       <div>
         <p>Last Operations: </p>
-        <ul>
-          {currentUser?.last_operations?.map((operation, index) => (
-            <li key={index}>{operation.mount} | {operation.type} | {operation.concept} | {operation.createdAt.slice(0, 10)}</li>
-          ))}
-        </ul>
+        <OperationList operations={currentUser?.last_operations} />
       </div>
     </section>
   )
