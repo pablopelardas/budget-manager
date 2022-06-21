@@ -25,7 +25,7 @@ const OperationManager = ({ updateList }) => {
         <option className='operation--list-type-option' value='income' name='type'>Income</option>
         <option className='operation--list-type-option' value='expense' name='type'>Expense</option>
       </select>
-      <OperationList operations={currentUser?.all_operations} />
+      <OperationList operations={currentUser?.all_operations} manage />
     </div>
   )
 

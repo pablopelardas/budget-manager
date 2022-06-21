@@ -56,6 +56,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
           body: { ...opData }
         }
       }
+    }),
+    deleteOperation: builder.mutation({
+      query: ({ userId, operationId }) => {
+        return {
+          url: `/operation/${userId}`,
+          method: 'DELETE',
+          body: { operationId }
+        }
+      }
     })
   })
 })
@@ -64,5 +73,6 @@ export const {
   useGetUserQuery,
   useGetLastOperationsQuery,
   useGetAllOperationsMutation,
-  useCreateOperationMutation
+  useCreateOperationMutation,
+  useDeleteOperationMutation
 } = userApiSlice
