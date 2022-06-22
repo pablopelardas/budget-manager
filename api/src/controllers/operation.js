@@ -62,11 +62,24 @@ const deleteOperation = async(req,res,next) => {
   }catch(error){console.log(error)}
 }
 
+const updateOperation = async(req,res,next) => {
+  const {operationId} = req.params
+  const {concept, amount, date} = req.body
+  try{
+    const operation = await Operation.findByPk(operationId)
+    if (!operation) return res.status(404).send(`Operation not found with id: ${operationId}`)
+    operation.update({concept, amount, date})
+    console.log(operation)
+    return res.status(204).send()
+  }catch(error){console.log(error)}
+}
+
 
 module.exports = {
   postOperation,
   getOperationById,
   getLastOperationsByUser,
   getOperationsHistory,
-  deleteOperation
+  deleteOperation,
+  updateOperation
 }

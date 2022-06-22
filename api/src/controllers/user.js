@@ -7,7 +7,6 @@ const getUserById = async(req,res,next) => {
     let user = await User.findByPk(id)
     if (!user) return res.status(404).send(`User not found with id:${id}`)
     const balance = await getBalance(id);
-    console.log(balance)
     user = {...user.dataValues, balance}
     res.send(user)
     // user ? res.send({user}) : res.status(404).send(`User not found`)
