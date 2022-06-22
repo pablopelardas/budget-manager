@@ -1,3 +1,45 @@
+// Variables
+
+$primary-bg: #ec8210;
+$secondary-bg: #3d1313;
+
+$soft-danger: #fb5b5b;
+$income-green: #50ff50;
+$expense-red: #ff7c7c;
+$update-button: #85d1f5;
+
+// Fuentes
+
+$font-primary: 'Roboto', sans-serif;
+
+// mixins
+
+@mixin button($fontColor, $bgColor, $width, $height) {
+  text-decoration: none;
+  color: $fontColor;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  background-color: $bgColor;
+  border: 1px black solid;
+  padding: 10px;
+  border-radius: 8px;
+  width: $width;
+  height: $height;
+  text-align: center;
+  cursor: pointer;
+}
+
+@mixin inputError() {
+  border: 1px solid red;
+}
+
+@mixin errorMessage() {
+  color: red;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,4 +48,6 @@
 
 html {
   font-size: 62.5%;
+  font-family: $font-primary;
+  scroll-behavior: smooth;
 }

@@ -1,0 +1,41 @@
+@import '../../styles/global.scss';
+
+.container {
+  width: 80vw;
+}
+
+.op-list--tablecell {
+  font-size: 1.5rem !important;
+
+  &.op--head {
+    background-color: #eeecec;
+  }
+
+  &.op--income {
+    background-color: $income-green;
+  }
+
+  &.op--expense {
+    background-color: $expense-red;
+  }
+}
+
+.op-list--delete {
+  @include button(black, $soft-danger, 80px, 40px);
+
+  &:hover {
+    background-color: #fff;
+    border: 1px $soft-danger solid;
+    color: $soft-danger;
+  }
+}
+
+.op-list--update {
+  @include button(black, $update-button, 80px, 40px);
+
+  &:hover {
+    background-color: #fff;
+    border: 1px $update-button solid;
+    color: $update-button;
+  }
+}

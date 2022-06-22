@@ -1,0 +1,36 @@
+@import '../../styles/global.scss';
+
+.lobby--section {
+  width: 80%;
+  min-height: 95vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+  margin-top: 50px;
+
+  & .lobby--title {
+    margin-top: 50px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 30px;
+  }
+
+  & .lobby--balance-p {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px black solid;
+    font-size: 2.3rem;
+    font-weight: bold;
+
+    & .lobby--balance-positive {
+      color: $income-green;
+    }
+
+    & .lobby--balance-negative {
+      color: #fb0000;
+    }
+  }
+}

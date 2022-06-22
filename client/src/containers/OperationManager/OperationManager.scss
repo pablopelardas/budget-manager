@@ -1,0 +1,14 @@
+.operation-manager-container {
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-top: 100px;
+
+  & h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+  }
+}
