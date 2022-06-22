@@ -1,0 +1,55 @@
+@import '../../styles/global.scss';
+
+.navbar--nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background-color: $secondary-bg;
+  font-size: 2rem;
+  height: 5vh;
+  display: flex;
+  place-content: center;
+  padding: 30px;
+
+  & .navbar--list {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    & .navbar--buttons {
+      display: flex;
+      margin-right: 140px;
+      gap: 30px;
+
+      & .navbar--item {
+        @include button(black, $primary-bg, 100px, 40px);
+
+        &:hover {
+          background-color: #fff;
+          border: 1px $primary-bg solid;
+          color: black;
+        }
+      }
+    }
+
+    & .navbar--logo {
+      object-fit: cover;
+      object-position: center;
+      width: 20%;
+      max-width: 250px;
+      min-height: 40px;
+      height: auto;
+    }
+  }
+
+  & a {
+    text-decoration: none;
+    color: black;
+  }
+
+}
