@@ -60,9 +60,18 @@ export const userApiSlice = apiSlice.injectEndpoints({
     deleteOperation: builder.mutation({
       query: ({ userId, operationId }) => {
         return {
-          url: `/operation/${userId}`,
+          url: `/operation/delete/${userId}`,
           method: 'DELETE',
           body: { operationId }
+        }
+      }
+    }),
+    updateOperation: builder.mutation({
+      query: ({ operationId, opData }) => {
+        return {
+          url: `/operation/update/${operationId}`,
+          method: 'PUT',
+          body: { ...opData }
         }
       }
     })
@@ -74,5 +83,6 @@ export const {
   useGetLastOperationsQuery,
   useGetAllOperationsMutation,
   useCreateOperationMutation,
-  useDeleteOperationMutation
+  useDeleteOperationMutation,
+  useUpdateOperationMutation
 } = userApiSlice

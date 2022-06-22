@@ -15,7 +15,6 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
-  console.log(result)
   // eslint-disable-next-line no-constant-condition
   if (result?.error?.originalStatus === 403) {
     // send refresh token to get new access token
