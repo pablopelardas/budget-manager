@@ -1,0 +1,42 @@
+@import '../../styles/global.scss';
+
+.operation--register {
+  width: 100%;
+  height: auto;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.123);
+  padding: 30px;
+
+  & .operation--inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  & .operation--subdivision {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+  }
+
+  & .operation--input {
+    font-size: 1.5rem;
+    padding: 5px;
+    width: 50%;
+  }
+
+  & .operation--input--error {
+    border: 1px solid red;
+  }
+}
+
+.operation--error-msg {
+  @include errorMessage()
+}
