@@ -1,0 +1,11 @@
+@import '../../styles/global.scss';
+
+.logout--button {
+  @include button(black, $soft-danger, 100px, 40px);
+
+  &:hover {
+    background-color: #fff;
+    border: 1px $soft-danger solid;
+    color: $soft-danger;
+  }
+}
